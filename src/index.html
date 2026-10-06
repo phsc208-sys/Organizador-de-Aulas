@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transcritor de Aulas</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral" aria-label="Disciplinas">
+      <h1 class="marca">Aulas</h1>
+      <nav id="lista-disciplinas" class="lista-disciplinas"></nav>
+      <div class="lateral-rodape">
+        <button id="btn-nova-disciplina" class="btn btn-primario" type="button">Nova disciplina</button>
+        <button id="btn-config" class="btn btn-lateral" type="button">Configurações</button>
+      </div>
+    </aside>
+    <main id="principal" class="principal"></main>
+  </div>
+
+  <dialog id="dlg-disciplina">
+    <form id="form-disciplina" method="dialog" autocomplete="off">
+      <h2 id="dlg-disciplina-titulo">Nova disciplina</h2>
+      <label class="campo">Nome
+        <input name="nome" required maxlength="120">
+      </label>
+      <label class="campo">Professor
+        <input name="professor" maxlength="120">
+      </label>
+      <div class="campos-linha">
+        <label class="campo">Semestre
+          <input name="semestre" maxlength="20" placeholder="2026/2">
+        </label>
+        <label class="campo">Carga horária (horas)
+          <input name="carga_horaria" type="number" min="0" max="1000" step="1">
+        </label>
+      </div>
+      <div class="acoes">
+        <button type="button" class="btn btn-discreto" data-fechar>Cancelar</button>
+        <button type="submit" class="btn btn-primario">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-config">
+    <form id="form-config" method="dialog" autocomplete="off">
+      <h2>Configurações</h2>
+      <p id="config-ambiente" class="nota"></p>
+
+      <fieldset>
+        <legend>Gemini</legend>
+        <label class="campo">Chave da API
+          <input name="gemini_api_key" type="password" autocomplete="off" spellcheck="false">
+          <span class="ajuda" id="ajuda-chave"></span>
+        </label>
+        <label class="campo">Modelo
+          <input name="gemini_model" required spellcheck="false">
+          <span class="ajuda">Confira o nome atual do modelo na documentação do Gemini.</span>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Whisper</legend>
+        <div class="campos-linha">
+          <label class="campo">Modelo (arquivo)
+            <input name="whisper_model" required spellcheck="false" list="modelos-whisper">
+          </label>
+          <label class="campo">Idioma
+            <input name="whisper_language" required maxlength="8">
+          </label>
+          <label class="campo">Threads
+            <input name="whisper_threads" type="number" min="1" max="64" required>
+          </label>
+        </div>
+        <datalist id="modelos-whisper">
+          <option value="ggml-small.bin"></option>
+          <option value="ggml-small-q5_1.bin"></option>
+          <option value="ggml-medium-q5_0.bin"></option>
+          <option value="ggml-large-v3-turbo-q5_0.bin"></option>
+        </datalist>
+      </fieldset>
+
+      <fieldset>
+        <legend>Microfone</legend>
+        <label class="campo">Dispositivo de entrada
+          <input name="input_device" list="lista-dispositivos" spellcheck="false" placeholder="vazio = microfone padrão">
+          <span class="ajuda">Trecho do nome. Para o filtro de ruído, use "pulse" ou "pipewire".</span>
+        </label>
+        <datalist id="lista-dispositivos"></datalist>
+        <label class="campo">Fonte do PipeWire
+          <input name="pulse_source" spellcheck="false" placeholder="easyeffects_source">
+          <span class="ajuda">Veja scripts/setup-easyeffects.md.</span>
+        </label>
+      </fieldset>
+
+      <div class="acoes">
+        <button type="button" class="btn btn-discreto" data-fechar>Cancelar</button>
+        <button type="submit" class="btn btn-primario">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-confirmar">
+    <form method="dialog">
+      <h2 data-campo="titulo"></h2>
+      <p data-campo="texto"></p>
+      <div class="acoes">
+        <button value="cancelar" class="btn btn-discreto">Cancelar</button>
+        <button value="confirmar" class="btn" data-acao="confirmar">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

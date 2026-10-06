@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissões da janela principal. O whisper.cpp e o SQLite são acionados só pelo Rust, então o frontend não precisa de permissões de shell nem de sql.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

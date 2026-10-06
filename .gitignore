@@ -1,0 +1,8 @@
+node_modules/
+.cache/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/whisper-cli-*
+*.bin
+*.sqlite
+*.wav
